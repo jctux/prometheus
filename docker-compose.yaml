@@ -13,7 +13,7 @@ services:
     hostname: alertmanager
     image: prom/alertmanager
     volumes:
-      - /home/i844059/dev/docker-compose/prometheus/alertmanager.conf:/etc/alertmanager/alertmanager.conf
+      - ./alertmanager.conf:/etc/alertmanager/alertmanager.conf
     command:
       - '--config.file=/etc/alertmanager/alertmanager.conf'
     ports:
@@ -24,8 +24,8 @@ services:
     hostname: prometheus
     image: prom/prometheus
     volumes:
-      - /home/i844059/dev/docker-compose/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
-      - /home/i844059/dev/docker-compose/prometheus/alert_rules.yaml:/etc/prometheus/alert_rules.yaml
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - ./alert_rules.yaml:/etc/prometheus/alert_rules.yaml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
@@ -39,8 +39,8 @@ services:
     hostname: grafana
     image: grafana/grafana
     volumes:
-      - /home/i844059/dev/docker-compose/prometheus/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/all.yaml
-      - /home/i844059/dev/docker-compose/prometheus/grafana_config.ini:/etc/grafana/config.ini
+      - ./grafana_datasources.yaml:/etc/grafana/provisioning/datasources/all.yaml
+      - ./grafana_config.ini:/etc/grafana/config.ini
       - grafana_data:/var/lib/grafana
     ports:
       - 3000:3000
