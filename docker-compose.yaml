@@ -1,46 +1,23 @@
-## docker-compose.yaml ##
 
-version: '3'
-
-volumes:
-  prometheus_data: {}
-  grafana_data: {}
+version: '3.7'
 
 services:
-
-  alertmanager:
-    container_name: alertmanager
-    hostname: alertmanager
-    image: prom/alertmanager
-    volumes:
-      - ./alertmanager.conf:/etc/alertmanager/alertmanager.conf
-    command:
-      - '--config.file=/etc/alertmanager/alertmanager.conf'
-    ports:
-      - 9093:9093
-
   prometheus:
-    container_name: prometheus
-    hostname: prometheus
+    privileged: true
+    restart: unless-stopped
     image: prom/prometheus
     volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
-      - ./alert_rules.yaml:/etc/prometheus/alert_rules.yaml
+      - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
-    links:
-      - alertmanager:alertmanager
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - 9090:9090
-
-  grafana:
-    container_name: grafana
-    hostname: grafana
-    image: grafana/grafana
-    volumes:
-      - ./grafana_datasources.yaml:/etc/grafana/provisioning/datasources/all.yaml
-      - ./grafana_config.ini:/etc/grafana/config.ini
-      - grafana_data:/var/lib/grafana
-    ports:
-      - 3000:3000
+    environment:
+      - TZ=America/Monterrey
+volumes:
+  prometheus_data:
+    driver: local

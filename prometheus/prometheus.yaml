@@ -19,8 +19,28 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'vad-metrics'
+  - job_name: 'local-metrics'
     metrics_path: '/metrics'
     scrape_interval: 5s
     static_configs:
-      - targets: ['10.236.251.22:9090']
+      - targets: ['127.0.0.1:9090']
+  - job_name: 'podman-metrics'
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['10.0.1.210:9100']
+  - job_name: 'vpn'
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['100.125.194.81:9100']
+  - job_name: 'rhel-dev'
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['10.0.1.220:9100']
+  - job_name: 'aws-tuxops-nvr'
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['tuxops-nvr:9100']
