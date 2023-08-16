@@ -24,11 +24,6 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['127.0.0.1:9090']
-  - job_name: 'podman-metrics'
-    metrics_path: '/metrics'
-    scrape_interval: 10s
-    static_configs:
-      - targets: ['10.0.1.210:9100']
   - job_name: 'vpn'
     metrics_path: '/metrics'
     scrape_interval: 5s
@@ -38,9 +33,9 @@ scrape_configs:
     metrics_path: '/metrics'
     scrape_interval: 10s
     static_configs:
-      - targets: ['10.0.1.220:9100']
-  - job_name: 'aws-tuxops-nvr'
+      - targets: ['rhel-dev:9100']
+  - job_name: 'azure-br'
     metrics_path: '/metrics'
     scrape_interval: 5s
     static_configs:
-      - targets: ['tuxops-nvr:9100']
+      - targets: ['azure-br:9100']
