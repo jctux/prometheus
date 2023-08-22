@@ -26,16 +26,31 @@ scrape_configs:
       - targets: ['127.0.0.1:9090']
   - job_name: 'vpn'
     metrics_path: '/metrics'
-    scrape_interval: 5s
+    scrape_interval: 2s
     static_configs:
       - targets: ['100.125.194.81:9100']
-  - job_name: 'rhel-dev'
+  - job_name: 'tuxops-dev'
     metrics_path: '/metrics'
     scrape_interval: 10s
     static_configs:
-      - targets: ['rhel-dev:9100']
-  - job_name: 'azure-br'
+      - targets: ['tuxops-dev:9100']
+  # - job_name: 'aws-nvr'
+  #   metrics_path: '/metrics'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['aws-nvr:9100']
+  - job_name: 'mon'
     metrics_path: '/metrics'
-    scrape_interval: 5s
+    scrape_interval: 1s
     static_configs:
-      - targets: ['azure-br:9100']
+      - targets: ['mon:9100']
+  # - job_name: 'nvidia-host'
+  #   metrics_path: '/metrics'
+  #   scrape_interval: 1s
+  #   static_configs:
+  #     - targets: ['nvidia-host:9100']
+  # - job_name: 'kubeflow'
+  #   metrics_path: '/metrics'
+  #   scrape_interval: 5s
+  #   static_configs:
+  #     - targets: ['kubeflow:9100']
